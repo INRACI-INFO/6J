@@ -97,6 +97,8 @@
     </div>
 
     <script>
+        let emailtest = "test@gmail.com"
+        let passwordtest = "test"
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("loginForm").addEventListener("submit", function (event) {
                 event.preventDefault();
@@ -106,8 +108,15 @@
                 let email = document.getElementById("email").value;
                 let password = document.getElementById("pswd").value;
 
-                prompt("Email:", email);
-                prompt("Mot de passe:", password);
+                if (email === emailtest && password === passwordtest) {
+                    prompt("les informations sont correctes")
+                }
+                else {
+                    prompt("les informations sont incorrectes")
+                }
+
+
+
 
 
             });

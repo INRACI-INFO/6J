@@ -14,7 +14,7 @@ db_config = {
     'host': 'infoemb.inraci.be',
     'user': 'ZTarik',
     'password': 'vc2zsF93ViBzztVO',
-    'database': 'ZTarik'
+    'database': 'seances'
 }
 
 # --- Envoi du SMS ---

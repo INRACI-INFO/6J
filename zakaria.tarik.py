@@ -4,10 +4,10 @@ import vonage
 
 # --- Configurations ---
 
-# Vonage API credentials (remplace par les tiens)
+# Vonage API 
 vonage_api_key = 'b8b31a19'
 vonage_api_secret = 'BU8PUSKtdt3i66JC'
-vonage_from = 'CoachSport'  # Le nom ou numéro expéditeur
+vonage_from = 'CoachSport'  #  expéditeur
 
 # DB configuration 
 db_config = {

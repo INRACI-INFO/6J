@@ -7,39 +7,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 2rem;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        .login-box,
-        .nfc-box {
+        .login-box {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             max-width: 400px;
-            margin: auto;
-            margin-top: 2rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #3e8ef7;
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 1rem;
+            padding: 0.75rem;
+            margin-bottom: 1.2rem;
             font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #3e8ef7;
+            outline: none;
         }
 
         button {
             width: 100%;
-            padding: 0.7rem;
+            padding: 0.9rem;
             font-size: 1rem;
             background-color: #3e8ef7;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #336fd1;
         }
 
         #badgeContainer {
@@ -72,6 +94,11 @@
             top: 1rem;
             left: 1rem;
         }
+
+        .nfc-card:hover {
+            transform: scale(1.03);
+            transition: transform 0.2s;
+        }
     </style>
 </head>
 
@@ -80,8 +107,10 @@
     <div class="login-box">
         <h2>Connexion</h2>
         <label for="">adresse email</label>
+        <br>
         <input type="text" id="username" placeholder="Nom d'utilisateur">
         <label for="">mot de passe</label>
+        <br>
         <input type="password" id="password" placeholder="Mot de passe">
         <button onclick="login()">Se connecter</button>
     </div>

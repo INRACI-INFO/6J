@@ -63,42 +63,6 @@
         button:hover {
             background-color: #336fd1;
         }
-
-        #badgeContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .nfc-card {
-            width: 220px;
-            height: 140px;
-            background: linear-gradient(135deg, #3e8ef7, #6a5acd);
-            border-radius: 16px;
-            padding: 1rem;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .nfc-card .chip {
-            width: 30px;
-            height: 20px;
-            background: gold;
-            border-radius: 4px;
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-        }
-
-        .nfc-card:hover {
-            transform: scale(1.03);
-            transition: transform 0.2s;
-        }
     </style>
 </head>
 
@@ -130,7 +94,7 @@
                 return;
             }
 
-            fetch("./check_credentials.php", {
+            fetch("./check_credentials.php?action=check_credentials", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -139,13 +103,12 @@
             })
                 .then(response => response.text())
                 .then(text => {
-                    console.log("↩️ Réponse brute du serveur :", text);
                     try {
                         const data = JSON.parse(text);
                         if (data.success) {
-                            alert("Connexion réussie !");
+                            window.location.href = data.redirect;
                         } else {
-                            alert("Identifiants incorrects.");
+                            alert(data.message || "Identifiants incorrects.");
                         }
                     } catch (e) {
                         console.error("Erreur de parsing JSON :", e);

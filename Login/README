@@ -1,0 +1,7 @@
+interface de connexion développée en HTML, CSS, JavaScript et PHP.
+Elle est destinée aux administrateurs souhaitant :
+
+	•	Consulter la liste des utilisateurs actuels fréquentant leur salle de sport
+	•	Accéder aux coordonnées des utilisateurs
+	•	Visualiser leurs heures de passage
+

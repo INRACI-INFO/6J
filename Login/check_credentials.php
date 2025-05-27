@@ -42,10 +42,6 @@ $result = $stmt->get_result();
 
 if ($result && $result->num_rows > 0) {
     echo json_encode(["success" => true]);
-    $ch = curl_init("http://127.0.0.1:8000/dashboard/start");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
 } else {
     echo json_encode(["success" => false, "message" => "Identifiants incorrects"]);
 }

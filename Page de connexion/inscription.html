@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymMaster - Inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+        }
+
+        .FrameLogin {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+
+        .sizedbox {
+            height: 15px;
+        }
+
+        input {
+            width: 80%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: darkblue;
+        }
+
+        .inscription {
+            width: 80%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .inscription:hover {
+            background-color: darkblue;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="FrameLogin">
+        <h2>Inscription sur GymMaster</h2>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <br>
+            <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
+
+            <div class="sizedbox"></div>
+
+            <label for="pswd">Mot de passe</label>
+            <input type="password" id="pswd" name="pswd" placeholder="Entrez votre mot de passe" required>
+
+            <div class="sizedbox"></div>
+
+            <input type="submit" value="S'inscrire">
+
+            <div class="sizedbox"></div>
+            <a href="./index.html">
+                <button class="inscription" type="button">Déjà inscrit ?</button>
+            </a>
+
+
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("loginForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+                console.log('Le formulaire a été soumis');
+
+
+                let email = document.getElementById("email").value;
+                let password = document.getElementById("pswd").value;
+
+                prompt("Email:", email);
+                prompt("Mot de passe:", password);
+
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>

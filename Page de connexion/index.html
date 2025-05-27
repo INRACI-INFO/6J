@@ -3,115 +3,132 @@
 
 <head>
     <meta charset="UTF-8">
+    <title>Connexion utilisateur</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GymMaster - Connexion</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: white;
+            padding: 2rem;
+            background-color: #f4f4f4;
         }
 
-        .FrameLogin {
+        .login-box,
+        .nfc-box {
             background: white;
-            padding: 20px;
+            padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 320px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            margin-top: 2rem;
         }
 
-        .sizedbox {
-            height: 15px;
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
         }
 
-        input {
-            width: 80%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"] {
-            background-color: blue;
+        button {
+            width: 100%;
+            padding: 0.7rem;
+            font-size: 1rem;
+            background-color: #3e8ef7;
             color: white;
-            cursor: pointer;
             border: none;
-            padding: 10px;
-            margin-top: 10px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
-        input[type="submit"]:hover {
-            background-color: darkblue;
+        #badgeContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .inscription {
-            width: 80%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: blue;
+        .nfc-card {
+            width: 220px;
+            height: 140px;
+            background: linear-gradient(135deg, #3e8ef7, #6a5acd);
+            border-radius: 16px;
+            padding: 1rem;
             color: white;
-            cursor: pointer;
-            border: none;
-            padding: 10px;
-            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
-        .inscription:hover {
-            background-color: darkblue;
+        .nfc-card .chip {
+            width: 30px;
+            height: 20px;
+            background: gold;
+            border-radius: 4px;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
         }
     </style>
-
 </head>
 
 <body>
-    <div class="FrameLogin">
-        <h2>Bienvenue sur GymMaster</h2>
-        <form id="loginForm">
-            <label for="email">Email</label>
-            <br>
-            <input type="email" id="email" name="email" placeholder="Entrez votre email" required>
 
-            <div class="sizedbox"></div>
-
-            <label for="pswd">Mot de passe</label>
-            <input type="password" id="pswd" name="pswd" placeholder="Entrez votre mot de passe" required>
-
-            <div class="sizedbox"></div>
-
-            <input type="submit" value="Se connecter">
-
-            <div class="sizedbox"></div>
-            <a href="./inscription.html">
-                <button class="inscription" type="button">S'inscrire</button>
-            </a>
-
-
-        </form>
+    <div class="login-box">
+        <h2>Connexion</h2>
+        <label for="">adresse email</label>
+        <input type="text" id="username" placeholder="Nom d'utilisateur">
+        <label for="">mot de passe</label>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Se connecter</button>
     </div>
 
+
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("loginForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-                console.log('Le formulaire a été soumis');
 
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-                let email = document.getElementById("email").value;
-                let password = document.getElementById("pswd").value;
+            console.log("⏩ Données envoyées :", { username, password });
 
-                prompt("Email:", email);
-                prompt("Mot de passe:", password);
+            if (!username || !password) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
 
+            fetch("./check_credentials.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(response => response.text())
+                .then(text => {
+                    console.log("↩️ Réponse brute du serveur :", text);
+                    try {
+                        const data = JSON.parse(text);
+                        if (data.success) {
+                            alert("Connexion réussie !");
+                        } else {
+                            alert("Identifiants incorrects.");
+                        }
+                    } catch (e) {
+                        console.error("Erreur de parsing JSON :", e);
+                        alert("Réponse du serveur invalide.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la requête :", error);
+                    alert(" Une erreur est survenue.");
+                });
+        }
 
-            });
-        });
     </script>
 
 </body>

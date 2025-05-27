@@ -1,4 +1,3 @@
-print("ok")
-jeux = input("ok : ")
-print(jeux)
-print(jeux)
+#Souheyb Mafi 6J
+#
+#

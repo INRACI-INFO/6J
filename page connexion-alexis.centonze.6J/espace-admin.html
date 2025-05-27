@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Utilisateur</title>
+    <title>Espace Admin</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,15 +33,15 @@
     </style>
 </head>
 <body>
-    <h1>Espace Utilisateur</h1>
-    <p>Bienvenue dans votre espace personnel.</p>
+    <h1>Espace Admin</h1>
+    <p>Bienvenue dans l'espace administrateur.</p>
     <button onclick="logout()">Se déconnecter</button>
 
     <script>
         
         const role = localStorage.getItem('role');
-        if (role !== 'user') {
-            alert("Accès refusé. Vous n'êtes pas un utilisateur.");
+        if (role !== 'admin' && role !== 'modo') {
+            alert("Accès refusé. Vous n'êtes pas un employé.");
             window.location.href = "index.html"; 
         }
 

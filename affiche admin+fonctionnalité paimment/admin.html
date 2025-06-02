@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administrateur-dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: white;
+        }
+
+        h1 {
+            color: black;
+        }
+
+
+
+        .welcomeMessageBox {
+            border: solid black 2px;
+            margin: 10px auto;
+            box-shadow: 0 0 10px black;
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .tableWrapper {
+            width: auto;
+            margin: 0 auto;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            min-width: 900px;
+            box-shadow: 0 0 10px black;
+            background-color: white;
+
+        }
+
+        .styled-table th,
+        .styled-table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px 15px;
+        }
+
+        .styled-table th {
+            background-color: #3f87a6;
+            color: white;
+        }
+
+        .styled-table tr:nth-child(even) {
+            background-color: white;
+        }
+
+        /* Styles pour les sections */
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 30px 0 10px 0;
+            color: #3f87a6;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="welcomeMessageBox">
+        <h1>Bienvenue</h1>
+    </div>
+
+    <div class="section-title">Utilisateurs</div>
+    <div class="tableWrapper">
+        <table class="styled-table" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Créé le</th>
+                    <th>Rôle</th>
+                    <th>Heure d'arrivée</th>
+                    <th>Heure de départ</th>
+
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-title">Paiements</div>
+    <div class="tableWrapper">
+        <table class="styled-table" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Prix</th>
+                    <th>Statut</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                </tr>
+            </thead>
+            <tbody id="paymentsTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        fetch("check_credentials.php?action=get_all")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById("userTableBody");
+                data.forEach(user => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${user.nom}</td>
+                        <td>${user.prenom}</td>
+                        <td>${user.sexe}</td>
+                        <td>${user.email}</td>
+                        <td>${user.telephone}</td>
+                        <td>${user.created_at}</td>
+                        <td>${user.role}</td>
+                        <td>${user.heure_arrive}</td>
+                        <td>${user.duree_last_session}</td>
+                    `;
+
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error("Erreur réseau:", error);
+            });
+
+        // Nouveau code pour charger les paiements
+        fetch("check_credentials.php?action=get_payments")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById("paymentsTableBody");
+                data.forEach(payment => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${payment.nom}</td>
+                        <td>${payment.prenom}</td>
+                        <td>${payment.prix} €</td>
+                        <td>${payment.statut}</td>
+                        <td>${payment.date_debut}</td>
+                        <td>${payment.date_fin}</td>
+                    `;
+
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error("Erreur réseau pour les paiements:", error);
+            });
+
+        fetch("get_session_user.php")
+            .then(response => response.json())
+            .then(user => {
+                if (user.nom && user.prenom) {
+                    document.getElementById("welcomeMessage").textContent = `Connecté en tant que ${user.prenom} ${user.nom}`;
+                }
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion utilisateur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #3e8ef7;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #3e8ef7;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.9rem;
+            font-size: 1rem;
+            background-color: #3e8ef7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #336fd1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h2>Connexion</h2>
+        <label for="">adresse email</label>
+        <br>
+        <input type="text" id="username" placeholder="Nom d'utilisateur">
+        <label for="">mot de passe</label>
+        <br>
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button onclick="login()">Se connecter</button>
+    </div>
+
+
+
+    <script>
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            console.log("⏩ Données envoyées :", { username, password });
+
+            if (!username || !password) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            fetch("./check_credentials.php?action=check_credentials", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(response => response.text())
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text);
+                        if (data.success) {
+                            window.location.href = data.redirect;
+                        } else {
+                            alert(data.message || "Identifiants incorrects.");
+                        }
+                    } catch (e) {
+                        console.error("Erreur de parsing JSON :", e);
+                        alert("Réponse du serveur invalide.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la requête :", error);
+                    alert(" Une erreur est survenue.");
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+
 <?php
 
 
@@ -40,7 +41,7 @@ function check_credentials()
 
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($user) {
-        echo json_encode(["success" => true, "redirect" => "admin.html"]);
+        echo json_encode(["success" => true, "redirect" => "espace-utilisateur.html"]);
     } else {
         echo json_encode(["success" => false, "message" => "Identifiants incorrects."]);
     }
